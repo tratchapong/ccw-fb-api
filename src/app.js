@@ -15,7 +15,7 @@ app.use('/api/comment',(req, res)=>{ res.send('comment service')})
 app.use('/api/like',(req, res)=>{ res.send('like service')})
 
 app.use((req,res,next) => {
-	return next(createHttpError.NotFound('Resource not found'))
+	return next(createHttpError[404]('Resource not found'))
 	// res.status(404).json({
 	// 	message : 'Not Found'
 	// })
