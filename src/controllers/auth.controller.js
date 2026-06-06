@@ -4,7 +4,7 @@ import { prisma } from '../lib/prisma.js'
 import createHttpError from 'http-errors'
 // import identityKeyUtil from '../utils/identity-key.util.js'
 import { registerSchema, loginSchema } from '../validations/schema.js'
-import { getUserBy } from '../services/user.service.js'
+import { getUserBy, createUser } from '../services/user.service.js'
 
 export async function register(req, res, next) {
 	const { identity, firstName, lastName, password, confirmPassword } = req.body
