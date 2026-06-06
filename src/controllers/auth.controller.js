@@ -64,3 +64,7 @@ const foundUser = await getUserBy(identityKey, data[identityKey])
 		user: userData,
 	})
 }
+
+export function getMe(req,res,next) {
+	res.json({ user: req.user})
+}
