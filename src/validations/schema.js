@@ -1,4 +1,6 @@
 import { z } from 'zod'
+import identityKeyUtil from '../utils/identity-key.util.js'
+import bcrypt from 'bcryptjs'
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const mobileRegex = /^[0-9]{10,15}$/
@@ -15,4 +17,24 @@ export const registerSchema = z.object({
 }).refine( data => data.password === data.confirmPassword, {
 	message : "confirmPassword must match password",
 	path: ['confirmPassword']
+}).transform( async data => {
+  const output = {
+   [identityKeyUtil(data.identity)] : data.identity,
+   firstName : data.firstName,
+   lastName : data.lastName,
+   password : await bcrypt.hash(data.password, 8)
+  }
+  return output
 })
+
+export const loginSchema = z.object({
+  identity: z.string().min(2, "Email or phone-number require")
+     .refine(value => emailRegex.test(value) || mobileRegex.test(value), {
+        message: "identity must be a valid email or mobile number"
+     }),
+  password: z.string().min(4, "password at least 4 characters")
+}).transform(data => ({
+     [identityKeyUtil(data.identity)]: data.identity,
+     password: data.password
+  })
+)

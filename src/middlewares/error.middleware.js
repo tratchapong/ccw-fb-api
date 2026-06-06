@@ -1,9 +1,11 @@
+import { z, ZodError } from "zod"
 
 export default (err,req,res,next) => {
-   if(err.name === 'ZodError') {
+   if(err instanceof ZodError) {
        return res.status(400).json({
            success: false,
-           errors: err.issues
+           errors: z.flattenError(err).fieldErrors
+          //  errors: err.issues
           //  errors: err.issues.map(err => err.message)
        })
    }

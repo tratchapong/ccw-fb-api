@@ -1,11 +1,12 @@
-GET http://localhost:8899/api/regi
+POST http://localhost:8899/api/auth/login
 
 ###
 POST http://localhost:8899/api/auth/login HTTP/1.1
 content-type: application/json
 
 {
- "identity" : "andy@cc20.th",
+#  "identity" : "andy@cc20.th",
+ "identity" : "123456789099",
  "password" : "a1234"
 }
 
@@ -18,15 +19,11 @@ content-type: application/json
 {
 #   "identity" : "1234567890",
  "identity" : "someone01@ggg.mail",
- "firstName" : "someone01",
+ "firstName" : "",
  "lastName" : "codecamp",
  "password" : "123456",
- "confirmPassword" : "123456"
+ "confirmPassword" : "12346"
 }
-###
-
-
-
 ###
 POST http://localhost:8899/api/post HTTP/1.1
 content-type: application/json
