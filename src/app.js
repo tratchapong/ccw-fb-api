@@ -4,6 +4,7 @@ import createHttpError from 'http-errors'
 import errorMiddleware from './middlewares/error.middleware.js'
 import authenticateMiddleware from './middlewares/authenticate.middleware.js'
 import cors from 'cors'
+import postRoute from './routes/post.route.js'
 
 const app = express()
 
@@ -16,10 +17,7 @@ app.use(cors({
 app.use(express.json())
 
 app.use('/api/auth', authRoute)
-app.use('/api/post', authenticateMiddleware, (req, res)=>{ 
-	// console.log(x)
-	res.send('post service')}
-)
+app.use('/api/post', authenticateMiddleware, postRoute)
 
 
 app.use((req,res,next) => {
