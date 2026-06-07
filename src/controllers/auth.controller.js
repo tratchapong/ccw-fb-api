@@ -59,7 +59,7 @@ const foundUser = await getUserBy(identityKey, data[identityKey])
  const { password, createdAt, updatedAt, ...userData } = foundUser
 
 	res.json({
-		msg: 'Login controller',
+		message: 'Login Successful',
 		token: token,
 		user: userData,
 	})
